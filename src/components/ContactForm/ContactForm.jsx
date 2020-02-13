@@ -7,50 +7,46 @@ export default class ContactForm extends Component {
     number: ""
   };
 
-  handleInputName = e => {
+  handleInput = e => {
     this.setState({
-      name: e.target.value
+      [e.target.name]: e.target.value,
+      [e.target.number]: e.target.value
     });
   };
 
-  handleInputNumber = e => {
-    this.setState({
-      number: e.target.value
-    });
-  };
-
+  
   handleSubmit = e => {
     e.preventDefault();
+
     this.props.onAddContact({ ...this.state });
 
     this.setState({
       name: "",
       number: ""
     });
-
-    // alert("Name and phone number were saved to Your contacts");
   };
 
   render() {
     const { name, number } = this.state;
     return (
       <form className={styles.contactForm} onSubmit={this.handleSubmit}>
-        <p>Name</p>
+        <label>Name</label>
         <input
           type="text"
           className={styles.contactInput}
           name="name"
           value={name}
-          onChange={this.handleInputName}
+          onChange={this.handleInput}
         />
-        <p>Number</p>
+        <label>Number</label>
         <input
           type="tel"
           className={styles.contactInput}
-          placeholder="ex. 111-11-11"
           name="number"
           value={number}
-          onChange={this.handleInputNumber}
+          onChange={this.handleInput}
+          placeholder="only numbers"
+          pattern="^[0-9]*$"
         />
         <input type="submit" className={styles.addButton} value="Add contact" />
       </form>

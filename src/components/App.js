@@ -1,16 +1,11 @@
 import React, { Component } from "react";
-import ContactForm from "./components/ContactForm/ContactForm";
-import ContactList from "./components/ContactList/ContactList";
-import Filter from "./components/Filter/Filter";
-import styles from "./components/ContactForm/ContactForm.module.css";
+import ContactForm from "./ContactForm/ContactForm";
+import ContactList from "./ContactList/ContactList";
+import Filter from "./Filter/Filter";
+import styles from "./ContactForm/ContactForm.module.css";
+import filterContacts from "../utility/filterContacts";
 
 const uuidv1 = require("uuid/v1");
-
-const filterContacts = (contacts, filter) => {
-  return contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
-};
 
 export default class App extends Component {
   state = {
@@ -28,9 +23,8 @@ export default class App extends Component {
   };
 
   addContact = contact => {
-    if (
-      this.state.contacts.map(contact => contact.name).includes(contact.name)
-    ) {
+    const newContact = contact.name;
+    if (this.state.contacts.some(contact => contact.name === newContact)) {
       alert(`${contact.name} is already in contacts`);
     } else {
       const contactToAdd = {

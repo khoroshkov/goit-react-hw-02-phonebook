@@ -2,16 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./ContactList.module.css";
 
+//const { id, name, number } = contact;
+
 const ContactList = ({ contacts, onDeleteContact }) => (
   <ul className={styles.listContacts}>
-    {contacts.map(contact => (
-      <li key={contact.id} className={styles.contacts}>
-        <span className={styles.nameField}>{contact.name}</span>
-        <span className={styles.phoneField}>{contact.number}</span>
+    
+    {contacts.map(({ id, name, number }) => (
+      <li key={id} className={styles.contacts}>
+        
+        <span className={styles.nameField}>{name}</span>
+        <span className={styles.phoneField}>{number}</span>
         <button
           type="button"
           className={styles.deleteBtn}
-          value={contact.id}
+          value={id}
           onClick={onDeleteContact}
         >
           Delete
